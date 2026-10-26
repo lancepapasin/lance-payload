@@ -1,0 +1,28 @@
+@layer payload-default {
+  html,
+  body {
+    overflow-x: clip; /* unlike hidden, clip doesn't make a scroll container, so sticky .nav keeps working */
+  }
+
+  .template-default {
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+
+  .nav {
+    height: 100dvh;
+  }
+
+  .drawer {
+    height: 100dvh;
+  }
+
+  @media (max-width: 768px) {
+    :root {
+      --nav-width: 100%;
+    }
+    .nav__header {
+      width: 100%;
+    }
+  }
+}

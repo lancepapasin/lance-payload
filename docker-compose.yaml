@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16
+    container_name: lance-payload-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  blob:
+    image: ghcr.io/payloadcms/vercel-blob-emulator:latest
+    container_name: lance-payload-blob
+    ports:
+      - '3100:3000'
+    environment:
+      EMULATOR_BASE_URL: 'http://localhost:3100'
+    volumes:
+      - blob-data:/data
+  mailpit:
+    image: axllent/mailpit
+    container_name: lance-payload-mailpit
+    volumes:
+      - mailpit-data:/data
+    ports:
+      - 8025:8025
+      - '${SMTP_PORT}:1025'
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
+volumes:
+  pgdata:
+  blob-data:
+  mailpit-data:

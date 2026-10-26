@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "lh-creative-corner": {
+      "url": "https://mcp.figma.com/mcp",
+      "type": "http"
+    }
+  }
+}
